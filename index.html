@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="calculator">
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="normal">
+                    <i class="fas fa-calculator"></i>
+                    Normal
+                </button>
+                <button class="tab-btn" data-tab="scientific">
+                    <i class="fas fa-flask"></i>
+                    Scientific
+                </button>
+            </div>
+
+            <!-- Display Section -->
+            <div class="display-section">
+                <div class="history-display" id="historyDisplay"></div>
+                <div class="main-display" id="mainDisplay">0</div>
+                <div class="expression-display" id="expressionDisplay"></div>
+            </div>
+
+            <!-- Memory Display -->
+            <div class="memory-indicator" id="memoryIndicator" style="display: none;">
+                <i class="fas fa-memory"></i>
+                Memory: <span id="memoryValue">0</span>
+            </div>
+
+            <!-- Normal Calculator Tab -->
+            <div class="tab-content active" id="normalTab">
+                <div class="button-grid normal-grid">
+                    <!-- Row 1 -->
+                    <button class="btn memory-btn" data-action="mc">MC</button>
+                    <button class="btn memory-btn" data-action="mr">MR</button>
+                    <button class="btn memory-btn" data-action="m-plus">M+</button>
+                    <button class="btn memory-btn" data-action="m-minus">M-</button>
+                    
+                    <!-- Row 2 -->
+                    <button class="btn clear-btn" data-action="clear">C</button>
+                    <button class="btn clear-btn" data-action="all-clear">AC</button>
+                    <button class="btn operator-btn" data-action="backspace">
+                        <i class="fas fa-backspace"></i>
+                    </button>
+                    <button class="btn operator-btn" data-operation="/">÷</button>
+                    
+                    <!-- Row 3 -->
+                    <button class="btn number-btn" data-number="7">7</button>
+                    <button class="btn number-btn" data-number="8">8</button>
+                    <button class="btn number-btn" data-number="9">9</button>
+                    <button class="btn operator-btn" data-operation="*">×</button>
+                    
+                    <!-- Row 4 -->
+                    <button class="btn number-btn" data-number="4">4</button>
+                    <button class="btn number-btn" data-number="5">5</button>
+                    <button class="btn number-btn" data-number="6">6</button>
+                    <button class="btn operator-btn" data-operation="-">−</button>
+                    
+                    <!-- Row 5 -->
+                    <button class="btn number-btn" data-number="1">1</button>
+                    <button class="btn number-btn" data-number="2">2</button>
+                    <button class="btn number-btn" data-number="3">3</button>
+                    <button class="btn operator-btn" data-operation="+">+</button>
+                    
+                    <!-- Row 6 -->
+                    <button class="btn number-btn zero-btn" data-number="0">0</button>
+                    <button class="btn number-btn" data-action="decimal">.</button>
+                    <button class="btn equals-btn" data-action="equals">=</button>
+                </div>
+            </div>
+
+            <!-- Scientific Calculator Tab -->
+            <div class="tab-content" id="scientificTab">
+                <div class="button-grid scientific-grid">
+                    <!-- Row 1 - Memory Functions -->
+                    <button class="btn memory-btn" data-action="mc">MC</button>
+                    <button class="btn memory-btn" data-action="mr">MR</button>
+                    <button class="btn memory-btn" data-action="m-plus">M+</button>
+                    <button class="btn memory-btn" data-action="m-minus">M-</button>
+                    <button class="btn clear-btn" data-action="clear">C</button>
+                    <button class="btn clear-btn" data-action="all-clear">AC</button>
+                    
+                    <!-- Row 2 - Functions -->
+                    <button class="btn function-btn" data-function="sin">sin</button>
+                    <button class="btn function-btn" data-function="cos">cos</button>
+                    <button class="btn function-btn" data-function="tan">tan</button>
+                    <button class="btn function-btn" data-function="log">log</button>
+                    <button class="btn function-btn" data-function="ln">ln</button>
+                    <button class="btn operator-btn" data-action="backspace">
+                        <i class="fas fa-backspace"></i>
+                    </button>
+                    
+                    <!-- Row 3 - More Functions -->
+                    <button class="btn function-btn" data-function="sqrt">√</button>
+                    <button class="btn function-btn" data-function="square">x²</button>
+                    <button class="btn function-btn" data-function="power">x^y</button>
+                    <button class="btn function-btn" data-function="factorial">x!</button>
+                    <button class="btn operator-btn" data-operation="/">/</button>
+                    <button class="btn operator-btn" data-action="open-paren">(</button>
+                    
+                    <!-- Row 4 - Numbers and Operations -->
+                    <button class="btn number-btn" data-number="7">7</button>
+                    <button class="btn number-btn" data-number="8">8</button>
+                    <button class="btn number-btn" data-number="9">9</button>
+                    <button class="btn operator-btn" data-operation="*">×</button>
+                    <button class="btn operator-btn" data-action="close-paren">)</button>
+                    <button class="btn function-btn" data-function="pi">π</button>
+                    
+                    <!-- Row 5 -->
+                    <button class="btn number-btn" data-number="4">4</button>
+                    <button class="btn number-btn" data-number="5">5</button>
+                    <button class="btn number-btn" data-number="6">6</button>
+                    <button class="btn operator-btn" data-operation="-">−</button>
+                    <button class="btn function-btn" data-function="e">e</button>
+                    <button class="btn function-btn" data-function="abs">|x|</button>
+                    
+                    <!-- Row 6 -->
+                    <button class="btn number-btn" data-number="1">1</button>
+                    <button class="btn number-btn" data-number="2">2</button>
+                    <button class="btn number-btn" data-number="3">3</button>
+                    <button class="btn operator-btn" data-operation="+">+</button>
+                    <button class="btn function-btn" data-function="inverse">1/x</button>
+                    <button class="btn function-btn" data-function="percent">%</button>
+                    
+                    <!-- Row 7 -->
+                    <button class="btn number-btn zero-btn" data-number="0">0</button>
+                    <button class="btn number-btn" data-action="decimal">.</button>
+                    <button class="btn function-btn" data-function="negate">±</button>
+                    <button class="btn equals-btn" data-action="equals">=</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Panel -->
+        <div class="history-panel" id="historyPanel">
+            <div class="history-header">
+                <h3>History</h3>
+                <button class="clear-history-btn" id="clearHistoryBtn">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+            <div class="history-list" id="historyList">
+                <div class="no-history">No calculations yet</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

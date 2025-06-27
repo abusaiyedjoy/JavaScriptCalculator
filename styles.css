@@ -1,0 +1,436 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: auto;
+}
+
+/* Calculator Container */
+.calculator-container {
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+    align-items: flex-start;
+}
+
+/* Main Calculator */
+.calculator {
+    background: #2a2a3e;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid #3a3a5c;
+    min-width: 400px;
+    max-width: 600px;
+}
+
+/* Tab Navigation */
+.tab-navigation {
+    display: flex;
+    background: #1e1e2e;
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 20px;
+    gap: 4px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px 16px;
+    background: transparent;
+    border: none;
+    color: #888;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.tab-btn:hover {
+    background: #3a3a5c;
+    color: #fff;
+}
+
+.tab-btn.active {
+    background: #4a9eff;
+    color: white;
+    box-shadow: 0 4px 12px rgba(74, 158, 255, 0.3);
+}
+
+/* Display Section */
+.display-section {
+    background: #1e1e2e;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #3a3a5c;
+    text-align: right;
+}
+
+.history-display {
+    font-size: 14px;
+    color: #888;
+    min-height: 20px;
+    margin-bottom: 8px;
+    word-wrap: break-word;
+}
+
+.main-display {
+    font-size: 2.5em;
+    font-weight: 300;
+    color: #ffffff;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.expression-display {
+    font-size: 16px;
+    color: #4a9eff;
+    min-height: 20px;
+    margin-top: 8px;
+    word-wrap: break-word;
+}
+
+/* Memory Indicator */
+.memory-indicator {
+    background: #4a9eff;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Button Grids */
+.button-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.normal-grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+}
+
+.scientific-grid {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+}
+
+/* Button Styles */
+.btn {
+    padding: 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #3a3a5c;
+    color: #ffffff;
+    border: 1px solid #4a4a6c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Button Type Specific Styles */
+.number-btn {
+    background: #4a4a6c;
+}
+
+.number-btn:hover {
+    background: #5a5a7c;
+}
+
+.operator-btn {
+    background: #ff9500;
+    color: white;
+}
+
+.operator-btn:hover {
+    background: #ffad33;
+}
+
+.equals-btn {
+    background: #4a9eff;
+    color: white;
+    grid-column: span 2;
+}
+
+.equals-btn:hover {
+    background: #6bb3ff;
+}
+
+.clear-btn {
+    background: #ff6b6b;
+    color: white;
+}
+
+.clear-btn:hover {
+    background: #ff8787;
+}
+
+.function-btn {
+    background: #6c5ce7;
+    color: white;
+    font-size: 14px;
+}
+
+.function-btn:hover {
+    background: #8b7ed8;
+}
+
+.memory-btn {
+    background: #00b894;
+    color: white;
+    font-size: 14px;
+}
+
+.memory-btn:hover {
+    background: #00d2a0;
+}
+
+.zero-btn {
+    grid-column: span 2;
+}
+
+/* Scientific Grid Specific Adjustments */
+.scientific-grid .zero-btn {
+    grid-column: span 1;
+}
+
+.scientific-grid .equals-btn {
+    grid-column: span 1;
+}
+
+/* History Panel */
+.history-panel {
+    background: #2a2a3e;
+    border-radius: 20px;
+    padding: 20px;
+    width: 300px;
+    max-height: 600px;
+    border: 1px solid #3a3a5c;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #3a3a5c;
+}
+
+.history-header h3 {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.clear-history-btn {
+    background: #ff6b6b;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.clear-history-btn:hover {
+    background: #ff8787;
+}
+
+.history-list {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.history-item {
+    background: #3a3a5c;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid #4a4a6c;
+}
+
+.history-item:hover {
+    background: #4a4a6c;
+    transform: translateX(4px);
+}
+
+.history-expression {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 4px;
+}
+
+.history-result {
+    font-size: 16px;
+    color: #4a9eff;
+    font-weight: 500;
+}
+
+.no-history {
+    text-align: center;
+    color: #666;
+    padding: 40px 20px;
+    font-style: italic;
+}
+
+/* Scrollbar Styling */
+.history-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.history-list::-webkit-scrollbar-track {
+    background: #1e1e2e;
+    border-radius: 3px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+    background: #4a4a6c;
+    border-radius: 3px;
+}
+
+.history-list::-webkit-scrollbar-thumb:hover {
+    background: #5a5a7c;
+}
+
+/* Error State */
+.error {
+    color: #ff6b6b !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .calculator-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .calculator {
+        min-width: 90vw;
+        max-width: 90vw;
+    }
+    
+    .history-panel {
+        width: 90vw;
+        max-width: 90vw;
+    }
+    
+    .main-display {
+        font-size: 2em;
+    }
+    
+    .btn {
+        padding: 16px;
+        font-size: 16px;
+        min-height: 50px;
+    }
+    
+    .scientific-grid {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 8px;
+    }
+    
+    .normal-grid {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .calculator {
+        padding: 15px;
+    }
+    
+    .main-display {
+        font-size: 1.8em;
+    }
+    
+    .btn {
+        padding: 12px;
+        font-size: 14px;
+        min-height: 45px;
+    }
+    
+    .scientific-grid {
+        gap: 6px;
+    }
+    
+    .function-btn, .memory-btn {
+        font-size: 12px;
+    }
+}
+
+/* Animation for tab switching */
+.tab-content {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Button press animation */
+.btn-pressed {
+    transform: scale(0.95);
+    background-color: #6a6a8c !important;
+}
