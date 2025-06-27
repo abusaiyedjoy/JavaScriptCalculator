@@ -97,6 +97,8 @@ Calculation Complete → History Array Update → Local Storage Save → History
 ```
 Changelog:
 - June 27, 2025. Initial setup
+- June 27, 2025. Fixed equals button functionality and removed history panel
+- June 27, 2025. Enhanced UI with glassmorphism design, improved animations, and modern styling
 ```
 
 ## User Preferences

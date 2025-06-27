@@ -5,21 +5,18 @@ class Calculator {
         this.operator = null;
         this.waitingForNewOperand = false;
         this.memory = 0;
-        this.history = [];
         this.currentExpression = '';
         this.isScientificMode = false;
         this.parenthesesStack = [];
         
         this.initializeElements();
         this.bindEvents();
-        this.loadHistory();
         this.updateDisplay();
     }
     
     initializeElements() {
         // Display elements
         this.mainDisplay = document.getElementById('mainDisplay');
-        this.historyDisplay = document.getElementById('historyDisplay');
         this.expressionDisplay = document.getElementById('expressionDisplay');
         this.memoryIndicator = document.getElementById('memoryIndicator');
         this.memoryValue = document.getElementById('memoryValue');
@@ -27,10 +24,6 @@ class Calculator {
         // Tab elements
         this.tabButtons = document.querySelectorAll('.tab-btn');
         this.tabContents = document.querySelectorAll('.tab-content');
-        
-        // History elements
-        this.historyList = document.getElementById('historyList');
-        this.clearHistoryBtn = document.getElementById('clearHistoryBtn');
         
         // Button elements
         this.numberButtons = document.querySelectorAll('[data-number]');
@@ -77,8 +70,7 @@ class Calculator {
             });
         });
         
-        // History
-        this.clearHistoryBtn.addEventListener('click', () => this.clearHistory());
+
         
         // Keyboard support
         document.addEventListener('keydown', (e) => this.handleKeyboard(e));
@@ -201,7 +193,6 @@ class Calculator {
             }
             
             this.currentInput = this.formatResult(result);
-            this.addToHistory(`${func}(${inputValue})`, result);
             this.waitingForNewOperand = true;
             this.updateDisplay();
         } catch (error) {
@@ -224,7 +215,7 @@ class Calculator {
                 this.inputDecimal();
                 break;
             case 'equals':
-                this.calculate();
+                this.equals();
                 break;
             case 'mc':
                 this.memoryClear();
@@ -273,7 +264,6 @@ class Calculator {
             try {
                 const newValue = this.calculate(this.previousInput, inputValue, this.operator);
                 this.currentInput = this.formatResult(newValue);
-                this.addToHistory(expression, newValue);
                 this.previousInput = '';
                 this.operator = null;
                 this.waitingForNewOperand = true;
@@ -412,11 +402,12 @@ class Calculator {
     showError(message) {
         this.currentInput = 'Error';
         this.mainDisplay.classList.add('error');
-        this.historyDisplay.textContent = message;
+        this.expressionDisplay.textContent = message;
         
         setTimeout(() => {
             this.allClear();
             this.mainDisplay.classList.remove('error');
+            this.expressionDisplay.textContent = '';
         }, 2000);
     }
     
@@ -439,72 +430,7 @@ class Calculator {
             this.mainDisplay.style.fontSize = '2.5em';
         }
     }
-    
-    // History management
-    addToHistory(expression, result) {
-        const historyItem = {
-            expression: expression,
-            result: this.formatResult(result),
-            timestamp: new Date().toISOString()
-        };
-        
-        this.history.unshift(historyItem);
-        
-        // Keep only last 50 calculations
-        if (this.history.length > 50) {
-            this.history = this.history.slice(0, 50);
-        }
-        
-        this.saveHistory();
-        this.renderHistory();
-    }
-    
-    renderHistory() {
-        if (this.history.length === 0) {
-            this.historyList.innerHTML = '<div class="no-history">No calculations yet</div>';
-            return;
-        }
-        
-        this.historyList.innerHTML = this.history.map(item => `
-            <div class="history-item" onclick="calculator.useHistoryResult('${item.result}')">
-                <div class="history-expression">${item.expression}</div>
-                <div class="history-result">= ${item.result}</div>
-            </div>
-        `).join('');
-    }
-    
-    useHistoryResult(result) {
-        this.currentInput = result;
-        this.waitingForNewOperand = true;
-        this.updateDisplay();
-    }
-    
-    clearHistory() {
-        this.history = [];
-        this.saveHistory();
-        this.renderHistory();
-    }
-    
-    saveHistory() {
-        try {
-            localStorage.setItem('calculatorHistory', JSON.stringify(this.history));
-        } catch (e) {
-            console.warn('Could not save history to localStorage');
-        }
-    }
-    
-    loadHistory() {
-        try {
-            const saved = localStorage.getItem('calculatorHistory');
-            if (saved) {
-                this.history = JSON.parse(saved);
-                this.renderHistory();
-            }
-        } catch (e) {
-            console.warn('Could not load history from localStorage');
-            this.history = [];
-        }
-    }
+
     
     // Keyboard support
     handleKeyboard(event) {
